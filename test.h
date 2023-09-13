@@ -31,7 +31,8 @@ namespace Lab2{
                 return c;
             }
 
-            const Test operator+ (const Test &test); 
+            Test operator+ (const Test &test); 
+            int operator<=> (const Test &test);
     };
 }
 

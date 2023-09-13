@@ -30,8 +30,10 @@ namespace Lab2{
     void Test::setLast_num(int last_num){
         (last_num < 0) ? throw std::invalid_argument("invalid last_num") : this->last_num = last_num;
     }
-    const Test Test::operator+ (const Test &test) {
-        if (surname != test.getSurname()) throw std::invalid_argument("different surname");
+    Test Test::operator+ (const Test &test) {
+        if (surname != test.getSurname()){
+            throw std::invalid_argument("different surname");
+        } 
         if (first_num - 1 == test.getLast_num()){
             return Test(surname, mark, test.getFirst_num(), last_num);
         }
@@ -39,5 +41,22 @@ namespace Lab2{
             return Test(surname, mark, first_num, test.getLast_num());
         }
         throw std::invalid_argument("Its imposible");
+    }
+
+    int Test::operator <=> (const Test &test) {
+        for (size_t i = 0; i < std::min(surname.size(), test.getSurname().size()); i++){
+            if (surname[i] < test.getSurname()[i]){
+                return -1;
+            } else if (surname[i] > test.getSurname()[i]){
+                return 1;
+            }
+        }
+        if (first_num < test.getFirst_num()){
+            return -1;
+        } else if (first_num == test.getFirst_num()){
+            return 0;
+        } else{
+            return 1;
+        }
     }  
 }
