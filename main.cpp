@@ -13,9 +13,14 @@ int main(){
             if (!action){
                 break;
             }
-            if (action(stack) != 0){
-                throw std::invalid_argument("poop");
-            }
+            try{
+                if (action(stack) != 0){
+                    throw std::invalid_argument("poop");
+                }
+            }catch(const std::exception &msg){
+                std::cout << msg.what() << std::endl;
+                continue;
+            }    
         }
     } catch(const std::bad_alloc &ba){
         std::cerr<<"Not enough memory"<<std::endl;

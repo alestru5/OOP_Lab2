@@ -12,9 +12,7 @@ namespace Lab2{
     }
 
     Stack::Stack(int count, std::vector<Test> tmp, int m_size){
-        if (count > m_size){
-            throw std::invalid_argument("stack overflow");
-        }
+        this->m_size = std::max(m_size, count);
         arr = new Test[count];
         this->c_size = count;
         this->m_size = m_size;
@@ -78,12 +76,30 @@ namespace Lab2{
         for (int i = 0; i < f; i++){
             (*this) += tmp[i];
         }
-        if (f == c_size){
-            Test empty;
-            return empty;
+        if (f == c){
+            throw std::invalid_argument("Stack hasn't zero test");
         }
-        return tmp[f];
-        
+        return tmp[f]; 
+    }
+
+    void Stack::delete_test(const Test &test){
+        std::vector<Test> tmp;
+        int c = c_size;
+        int f = c_size;
+        for (int i = 0; i < c; i++){
+            Test t = (*this).pop();
+            tmp.push_back(t);
+            if (t <=> test == 0){
+                f = i;
+                break;
+            }
+        }
+        for (int i = 0; i < f; i++){
+            (*this) += tmp[i];
+        }
+        if (f == c){
+            throw std::invalid_argument("Stack hasn't this test");
+        }
     }
 
     void Stack::union_stack(){
@@ -92,7 +108,7 @@ namespace Lab2{
 
     void Stack::operator+=(const Test &test){
         if (c_size == m_size){
-            throw std::invalid_argument("stack overflow");
+            m_size += 1;
         }
         Test *tmp = new Test[c_size + 1];
         std::copy(arr, arr + c_size, tmp);
@@ -101,4 +117,5 @@ namespace Lab2{
         arr[c_size] = test;
         c_size += 1;
     }
+
 }

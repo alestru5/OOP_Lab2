@@ -15,7 +15,7 @@ namespace Lab2{
         public:
             Stack(): m_size(10), c_size(0), arr(nullptr){};
             Stack(const Stack& other);
-            Stack(int count, std::vector<Test> tmp, int m_size = 10);
+            Stack(int count, std::vector<Test> tmp, int m_size);
             Stack(const Stack&& other);
             ~Stack() {m_size = 0, c_size = 0, delete [] arr; };
 
@@ -28,10 +28,12 @@ namespace Lab2{
             void split_stack();
             Test pop();
             Test zero_mark();
+            void delete_test(const Test &test);
             void union_stack();
 
 
             void operator+=(const Test &test);
+            
         
 
 

@@ -10,7 +10,7 @@ int (*menu())(Stack &stack);
 int enter_stack(Stack &stack);
 int show_stack(Stack &stack);
 int show_info(Stack &stack);
-
-
+int add_test(Stack &stack);
+int link_tests(Stack &stack);
 
 #endif
