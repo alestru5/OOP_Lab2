@@ -1,36 +1,50 @@
 #include "test.h"
 
-namespace Lab2{
+namespace Lab2 {
     Test::Test(std::string &surname): mark(0), first_num(1), last_num(1){
         (surname.size() == 0) ? throw std::invalid_argument("invalid surname") : this->surname = move(surname);
-    };  
+    }
 
     Test::Test(const std::string &surname, int mark, int first_num, int last_num){
         (surname.size() == 0) ? throw std::invalid_argument("invalid surname") : this->surname = move(surname);
-        (mark < 2 || mark > 5) ? throw std::invalid_argument("invalid mark") : this->mark = mark;
+        (mark != 0 && (mark < 2 || mark > 5)) ? throw std::invalid_argument("invalid mark") : this->mark = mark;
         if (first_num > last_num){
             throw std::invalid_argument("invalid nums");
         }
         (first_num < 0) ? throw std::invalid_argument("invalid first_num") : this->first_num = first_num;
         (last_num < 0) ? throw std::invalid_argument("invalid last_num") : this->last_num = last_num;
-    };
+    }
 
-    void Test::setSurname(std::string surname){
+    Test &Test::setSurname(std::string surname){
         (surname.size() == 0) ? throw std::invalid_argument("invalid surname") : this->surname = surname;
+        return *this;
     }
 
-    void Test::setMark(int mark){
-        (mark < 2 || mark > 5) ? throw std::invalid_argument("invalid mark") : this->mark = mark;
+    Test &Test::setMark(int mark){
+        (mark != 0 && (mark < 2 || mark > 5)) ? throw std::invalid_argument("invalid mark") : this->mark = mark;
+        return *this;
     }
 
-    void Test::setFirst_num(int first_num){
+    Test &Test::setFirst_num(int first_num){
         (first_num < 0) ? throw std::invalid_argument("invalid first_num") : this->first_num = first_num;
+        return *this;
     }
 
-    void Test::setLast_num(int last_num){
+    Test &Test::setLast_num(int last_num){
         (last_num < 0) ? throw std::invalid_argument("invalid last_num") : this->last_num = last_num;
+        return *this;
     }
-    Test Test::operator+ (const Test &test) {
+
+    std::vector<Test> Test::split_test() const {
+        std::vector <Test> split_test;
+        for (int i = 0; i < last_num - first_num + 1; i++){
+            split_test.push_back(Test(surname, mark, first_num + i, first_num + i));
+        }
+        return split_test;
+    }
+    
+
+    Test Test::operator+ (const Test &test) const {
         if (surname != test.getSurname()){
             throw std::invalid_argument("different surname");
         } 
@@ -43,7 +57,9 @@ namespace Lab2{
         throw std::invalid_argument("Its imposible");
     }
 
-    int Test::operator <=> (const Test &test) {
+    
+
+    int Test::operator<=>(const Test &test) const {
         for (size_t i = 0; i < std::min(surname.size(), test.getSurname().size()); i++){
             if (surname[i] < test.getSurname()[i]){
                 return -1;
@@ -58,5 +74,5 @@ namespace Lab2{
         } else{
             return 1;
         }
-    }  
+    }
 }
