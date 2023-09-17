@@ -16,7 +16,7 @@ namespace Lab2{
             Stack(): m_size(10), c_size(0), arr(nullptr){};
             Stack(const Stack& other);
             Stack(int count, std::vector<Test> tmp, int m_size);
-            Stack(const Stack&& other);
+            Stack(Stack&& other);
             ~Stack() {m_size = 0, c_size = 0, delete [] arr; };
 
             int getM_size() const { return m_size; };
@@ -39,6 +39,8 @@ namespace Lab2{
             void operator+=(const Test &test);
             Stack &operator=(const Stack &stack);
             Stack &operator=(Stack &&stack);
+            Stack &operator++();
+            Test &operator[](int i);
             friend std::ostream &operator<<(std::ostream &c, const Stack &stack);
             friend std::istream &operator>>(std::istream &c, Stack &stack);
         

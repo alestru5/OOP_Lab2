@@ -21,10 +21,13 @@ namespace Lab2{
         }
     }
 
-    Stack::Stack(const Stack&& other){
+    Stack::Stack(Stack&& other){
         m_size = other.m_size;
         c_size = other.c_size;
         arr= other.arr;
+        other.arr = nullptr;
+        other.m_size = 0;
+        other.c_size = 0;
     }
 
     void Stack::split_stack(){
@@ -168,8 +171,8 @@ namespace Lab2{
 
     Stack &Stack::operator=(Stack &&stack){
         if (this != &stack){
-            m_size = stack.getM_size();
-            c_size = stack.getC_size();
+            m_size = stack.m_size;
+            c_size = stack.c_size;
             delete [] arr;
             arr = stack.getArr();
             stack.arr = nullptr;
@@ -177,6 +180,22 @@ namespace Lab2{
             stack.m_size = 0;
         }  
         return *this;
+    }
+
+    Stack &Stack::operator++(){
+        if (c_size == 0){
+            throw std::invalid_argument("stack is empty");
+        }
+        Test tmp = arr[c_size - 1];
+        *this += tmp;
+        return *this;
+    }
+
+    Test&Stack::operator[](int i){
+        if (i >= c_size || i < 0){
+            throw std::invalid_argument("index out of range");
+        }
+        return arr[i];
     }
 
     std::ostream &operator<<(std::ostream &c, const Stack &stack){
@@ -200,11 +219,15 @@ namespace Lab2{
         try{
             int t;
             c>>t;
-            for (int i = 0; i < t; i++){
-                Test test;
-                c>>test;
-                stack += test;
-            }
+            if (c.good()){
+                for (int i = 0; i < t; i++){
+                    Test test;
+                    c>>test;
+                    stack += test;
+                }
+            } else{
+                throw std::invalid_argument("invalid argument");
+            }    
         } catch(...){
             throw;
         }    

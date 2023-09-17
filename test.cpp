@@ -24,7 +24,7 @@ namespace Lab2 {
     }
 
     Test &Test::setMark(int mark){
-        ((mark != 0 && (mark < 2 || mark > 5)) || first_num != 1) ? throw std::invalid_argument("invalid mark") : this->mark = mark;
+        ((mark != 0 && (mark < 2 || mark > 5)) || (first_num != 1 && mark != 0)) ? throw std::invalid_argument("invalid mark") : this->mark = mark;
         return *this;
     }
 
@@ -50,6 +50,7 @@ namespace Lab2 {
         }
         return split_test;
     }
+
     
 
     Test Test::operator+ (const Test &test) const {
@@ -64,8 +65,6 @@ namespace Lab2 {
         }
         throw std::invalid_argument("Its imposible");
     }
-
-    
 
     int Test::operator<=>(const Test &test) const {
         for (size_t i = 0; i < std::min(surname.size(), test.getSurname().size()); i++){
@@ -84,6 +83,16 @@ namespace Lab2 {
         }
     }
 
+    Test Test::operator!() const{
+        Test tmp(*this);
+        if (mark != 0){
+            tmp.setMark(0);
+        } else if (mark == 0 && first_num == 1){
+            tmp.setMark(2);
+        }
+        return tmp;
+    }
+
     std::ostream &operator<<(std::ostream &c, const Test &test){
         c<<"Surname: "<<test.surname<<std::endl;
         c<<"Mark: "<<test.mark<<std::endl;
@@ -100,7 +109,7 @@ namespace Lab2 {
         c>>m;
         c>>f_n;
         c>>l_n;
-        if (c){
+        if (c.good()){
             test.surname = sn;
             test.mark = m;
             test.first_num = f_n;

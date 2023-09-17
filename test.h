@@ -33,6 +33,7 @@ namespace Lab2{
             Test operator+(const Test &test) const;
             std::vector<Test> split_test() const;
             int operator<=>(const Test &test) const;
+            Test operator!() const;
             friend std::ostream &operator<<(std::ostream &c, const Test &test);
             friend std::istream &operator>>(std::istream &c, Test &test);
     };
