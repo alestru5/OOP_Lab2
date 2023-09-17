@@ -3,13 +3,13 @@
 
 int (*menu())(Stack &stack){
     try{
-        int (*foo[])(Stack &stack) = {enter_stack, show_stack, show_info, add_test, link_tests, nullptr, nullptr, nullptr, nullptr, nullptr, nullptr};
+        int (*foo[])(Stack &stack) = {enter_stack, show_stack, show_info, add_test, delete_test, link_tests, split_test, split_stack, pop_stack, union_stack, zero_pop, nullptr};
         std::cout<<"Menu:"<<std::endl;
-        std::string msg[]{"Enter stack.", "Show stack", "Show info", "Add test", "Link tests", "Split test", "Split stack", "Stack's pop", "Union tests", "Zero pop", "Quit"};
+        std::string msg[]{"Enter stack.", "Show stack", "Show info", "Add test", "Delete test", "Link tests", "Split test", "Split stack", "Stack's pop", "Union tests", "Zero pop", "Quit"};
         for (size_t i = 0; i < sizeof(msg) / sizeof(msg[0]); i++){
             std::cout<<i + 1<<". "<<msg[i]<<std::endl;
         }
-        int a = getNum<int>(1, 11);
+        int a = getNum<int>(1, 12);
         return foo[a - 1];
     } catch(...){
         throw;
@@ -38,6 +38,7 @@ int show_stack(Stack &stack){
     std::cout<<std::endl;
     std::cout<<"Your stack:"<<std::endl;
     for (int i = 0; i < stack.getC_size(); i++){
+        std::cout<<"----------"<<i+1<<"----------"<<std::endl;
         stack.getArr()[i].print(std::cout);
         std::cout<<std::endl;
     }
@@ -71,6 +72,23 @@ int add_test(Stack &stack){
     return 0;  
 }
 
+int delete_test(Stack &stack){
+    try{
+        if (stack.getC_size() == 0){
+            throw std::invalid_argument("Stack is empty");
+        }
+        int ind;
+        show_stack(stack);
+        std::cout<<"Choice test: ";
+        ind = getNum<int>(1, stack.getC_size());
+        Test first = stack.getArr()[ind-1];
+        stack.delete_test(first);
+    } catch (...){
+        throw;
+    }
+    return 0;
+}
+
 int link_tests(Stack &stack){
     try{
         int f, s;
@@ -84,6 +102,67 @@ int link_tests(Stack &stack){
         stack.delete_test(first);
         stack.delete_test(second);
         stack += (first + second);
+    } catch (...){
+        throw;
+    }
+    return 0;
+}
+
+int split_test(Stack &stack){
+    try{
+        int ind;
+        show_stack(stack);
+        std::cout<<"Choice test: ";
+        ind = getNum<int>(1, stack.getC_size());
+        Test first = stack.getArr()[ind-1];
+        std::vector <Test> tmp = first.split_test();
+        stack.delete_test(first);
+        for (size_t i = 0; i < tmp.size(); i++){
+            stack += tmp[i];
+        }
+    } catch (...){
+        throw;
+    }
+    return 0;
+}
+
+int split_stack(Stack &stack){
+    try{
+        stack.split_stack();
+    } catch (...){
+        throw;
+    }
+    return 0;
+}
+
+int pop_stack(Stack &stack){
+    try{
+        Test ans = stack.pop();
+        std::cout<<std::endl;
+        std::cout<<"Pop test: "<<std::endl;
+        ans.print(std::cout);
+    } catch (...){
+        throw;
+    }
+    return 0;
+}
+
+int union_stack(Stack &stack){
+    try{
+        stack.union_stack();
+    } catch (...){
+        throw;
+    }
+    return 0;
+    return 0;
+}
+
+int zero_pop(Stack &stack){
+    try{
+        Test ans = stack.zero_mark();
+        std::cout<<std::endl;
+        std::cout<<"Zero test: "<<std::endl;
+        ans.print(std::cout);
     } catch (...){
         throw;
     }

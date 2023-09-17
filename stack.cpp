@@ -103,7 +103,44 @@ namespace Lab2{
     }
 
     void Stack::union_stack(){
-        
+        std::unordered_map <std::string, std::vector<int>> mp;
+        for (int i = 0; i < c_size; i++){
+            Test test = arr[i];
+            if (test.getLast_num() > (int) mp[test.getSurname()].size()){
+                mp[test.getSurname()].resize(test.getLast_num(), -1);
+            }    
+            for (int j = test.getFirst_num() - 1; j < test.getLast_num(); j++){
+                mp[test.getSurname()][j] = test.getMark();
+            }
+        }
+        c_size = 0;
+        delete [] arr;
+        std::vector<Test> t;
+        for (auto &i: mp){
+            int l = -1, r = -1;
+            for (size_t j = 0; j < i.second.size(); j++){
+                if (i.second[j] != -1){
+                    if (l == -1){
+                        l = j;
+                    }
+                    r = j;
+                } else if (l != -1){
+                    Test tmp(i.first, i.second[l], l + 1, r + 1);
+                    t.push_back(tmp);
+                    l = -1;
+                    r = -1;
+                } 
+            }
+            if (l != -1 && r != -1){
+                Test tmp(i.first, i.second[l], l + 1, r + 1);
+                t.push_back(tmp);
+            }
+        }
+        arr = new Test[(int) t.size()];
+        c_size = (int) t.size();
+        for (size_t j = 0; j < t.size(); j++){
+            arr[j] = t[j];
+        }
     }
 
     void Stack::operator+=(const Test &test){
