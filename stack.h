@@ -23,6 +23,10 @@ namespace Lab2{
             int getC_size() const { return c_size; };
             Test *getArr() const { return arr; };
 
+            /*Stack &setM_size(int m_size){ this->m_size = m_size; return *this;};
+            Stack &setC_size(int c_size) { this->c_size = c_size; return *this; };
+            Stack &setArr(Test *arr) { this->arr= arr; return *this; };*/
+
             std::pair <int, int> check() const { return std::make_pair(c_size, m_size); };
 
             void split_stack();
@@ -33,7 +37,10 @@ namespace Lab2{
 
 
             void operator+=(const Test &test);
-            
+            Stack &operator=(const Stack &stack);
+            Stack &operator=(Stack &&stack);
+            friend std::ostream &operator<<(std::ostream &c, const Stack &stack);
+            friend std::istream &operator>>(std::istream &c, Stack &stack);
         
 
 

@@ -155,4 +155,60 @@ namespace Lab2{
         c_size += 1;
     }
 
+    Stack &Stack::operator=(const Stack &stack){
+        m_size = stack.getM_size();
+        c_size = stack.getC_size();
+        delete [] arr;
+        arr = new Test[c_size];
+        for (int i = 0; i < c_size; i++){
+            arr[i] = stack.getArr()[i];
+        }
+        return *this;
+    }
+
+    Stack &Stack::operator=(Stack &&stack){
+        if (this != &stack){
+            m_size = stack.getM_size();
+            c_size = stack.getC_size();
+            delete [] arr;
+            arr = stack.getArr();
+            stack.arr = nullptr;
+            stack.c_size = 0;
+            stack.m_size = 0;
+        }  
+        return *this;
+    }
+
+    std::ostream &operator<<(std::ostream &c, const Stack &stack){
+        if(stack.c_size == 0){
+            c << "Stack is empty";
+        }else{
+            c << "Your stack: "<<std::endl;
+            for(int i = stack.c_size - 1; i >= 0; --i){
+                c<<"----------"<<i+1<<"----------"<<std::endl;
+                c<<stack.arr[i];
+            }
+        }    
+        c << std::endl;
+        return c;
+    }
+
+    std::istream &operator>>(std::istream &c, Stack &stack){
+        if (stack.c_size != 0){
+            throw std::invalid_argument("stack isn't empty");
+        }
+        try{
+            int t;
+            c>>t;
+            for (int i = 0; i < t; i++){
+                Test test;
+                c>>test;
+                stack += test;
+            }
+        } catch(...){
+            throw;
+        }    
+        return c;
+    }
+
 }

@@ -28,17 +28,13 @@ namespace Lab2{
             
             
 
-            std::ostream & print(std::ostream &c) const {
-                c<<"Surname: "<<surname<<std::endl;
-                c<<"Mark: "<<mark<<std::endl;
-                c<<"First page: "<<first_num<<std::endl;
-                c<<"Last page: "<<last_num<<std::endl;
-                return c;
-            };
+            
 
             Test operator+(const Test &test) const;
             std::vector<Test> split_test() const;
             int operator<=>(const Test &test) const;
+            friend std::ostream &operator<<(std::ostream &c, const Test &test);
+            friend std::istream &operator>>(std::istream &c, Test &test);
     };
     
 }

@@ -83,4 +83,31 @@ namespace Lab2 {
             return 1;
         }
     }
+
+    std::ostream &operator<<(std::ostream &c, const Test &test){
+        c<<"Surname: "<<test.surname<<std::endl;
+        c<<"Mark: "<<test.mark<<std::endl;
+        c<<"First page: "<<test.first_num<<std::endl;
+        c<<"Last page: "<<test.last_num<<std::endl;
+        c<<std::endl;
+        return c;
+    }
+
+    std::istream &operator>>(std::istream &c, Test &test){
+        std::string sn;
+        int m, f_n, l_n;
+        c>>sn;
+        c>>m;
+        c>>f_n;
+        c>>l_n;
+        if (c){
+            test.surname = sn;
+            test.mark = m;
+            test.first_num = f_n;
+            test.last_num = l_n;
+        } else{
+            throw std::invalid_argument("invalid argument");
+        }
+        return c;
+    }
 }

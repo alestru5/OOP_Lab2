@@ -35,13 +35,7 @@ int enter_stack(Stack &stack){
 }
 
 int show_stack(Stack &stack){
-    std::cout<<std::endl;
-    std::cout<<"Your stack:"<<std::endl;
-    for (int i = 0; i < stack.getC_size(); i++){
-        std::cout<<"----------"<<i+1<<"----------"<<std::endl;
-        stack.getArr()[i].print(std::cout);
-        std::cout<<std::endl;
-    }
+    std::cout<<stack;
     return 0;  
 }
 
@@ -98,7 +92,7 @@ int link_tests(Stack &stack){
         s = getNum<int>(1, stack.getC_size());
         Test first = stack.getArr()[s-1];
         Test second = stack.getArr()[f-1];
-        (first + second).print(std::cout);
+        std::cout<<(first + second);
         stack.delete_test(first);
         stack.delete_test(second);
         stack += (first + second);
@@ -140,7 +134,7 @@ int pop_stack(Stack &stack){
         Test ans = stack.pop();
         std::cout<<std::endl;
         std::cout<<"Pop test: "<<std::endl;
-        ans.print(std::cout);
+        std::cout<<ans;
     } catch (...){
         throw;
     }
@@ -162,7 +156,7 @@ int zero_pop(Stack &stack){
         Test ans = stack.zero_mark();
         std::cout<<std::endl;
         std::cout<<"Zero test: "<<std::endl;
-        ans.print(std::cout);
+        std::cout<<ans;
     } catch (...){
         throw;
     }
