@@ -4,7 +4,7 @@
 #include <vector>
 #include <limits>
 
-#include "test.h"
+#include "./TestLib/test.h"
 
 using namespace Lab2;
 

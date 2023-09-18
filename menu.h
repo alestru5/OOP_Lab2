@@ -1,8 +1,8 @@
 #ifndef MENU_H
 #define MENU_H
 #include <iostream>
-#include "test.h"
-#include "stack.h"
+#include "./TestLib/test.h"
+#include "./StackLib/stack.h"
 #include "help.h"
 #include "unordered_map"
 

@@ -1,6 +1,6 @@
 #include <iostream>
-#include "test.h"
-#include "stack.h"
+#include "./TestLib/test.h"
+#include "./StackLib/stack.h"
 #include "menu.h"
 #include "help.h"
 
