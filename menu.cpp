@@ -151,6 +151,7 @@ int union_stack(Stack &stack){
     return 0;
 }
 
+
 int zero_pop(Stack &stack){
     try{
         Test ans = stack.zero_mark();

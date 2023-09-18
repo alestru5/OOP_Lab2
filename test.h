@@ -25,10 +25,6 @@ namespace Lab2{
             Test &setMark(int mark);
             Test &setFirst_num(int first_num);
             Test &setLast_num(int last_num);
-            
-            
-
-            
 
             Test operator+(const Test &test) const;
             std::vector<Test> split_test() const;
