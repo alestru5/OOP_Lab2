@@ -20,9 +20,7 @@ int main(){
             }catch(const std::exception &msg){
                 std::cout << msg.what() << std::endl;
                 continue;
-            } catch(...){
-                throw;
-            }    
+            } 
         }
     } catch(const std::bad_alloc &ba){
         std::cerr<<"Not enough memory"<<std::endl;

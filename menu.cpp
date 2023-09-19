@@ -103,29 +103,21 @@ int link_tests(Stack &stack){
 }
 
 int split_test(Stack &stack){
-    try{
-        int ind;
-        show_stack(stack);
-        std::cout<<"Choice test: ";
-        ind = getNum<int>(1, stack.getC_size());
-        Test first = stack.getArr()[ind-1];
-        std::vector <Test> tmp = first.split_test();
-        stack.delete_test(first);
-        for (size_t i = 0; i < tmp.size(); i++){
-            stack += tmp[i];
-        }
-    } catch (...){
-        throw;
+    int ind;
+    show_stack(stack);
+    std::cout<<"Choice test: ";
+    ind = getNum<int>(1, stack.getC_size());
+    Test first = stack.getArr()[ind-1];
+    std::vector <Test> tmp = first.split_test();
+    stack.delete_test(first);
+    for (size_t i = 0; i < tmp.size(); i++){
+        stack += tmp[i];
     }
     return 0;
 }
 
 int split_stack(Stack &stack){
-    try{
-        stack.split_stack();
-    } catch (...){
-        throw;
-    }
+    stack.split_stack();
     return 0;
 }
 
@@ -142,12 +134,7 @@ int pop_stack(Stack &stack){
 }
 
 int union_stack(Stack &stack){
-    try{
-        stack.union_stack();
-    } catch (...){
-        throw;
-    }
-    return 0;
+    stack.union_stack();
     return 0;
 }
 
