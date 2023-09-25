@@ -10,6 +10,8 @@ namespace Lab2{
     //! Класс Стопки работ
     class Stack{
         private:
+            //! Прибавление массива
+            static const int step = 10;
             //! Максимальный размер
             int m_size;
             //! Текущий размер
@@ -34,9 +36,7 @@ namespace Lab2{
             //! Геттер массива работ
             Test *getArr() const { return arr; };
 
-            /*Stack &setM_size(int m_size){ this->m_size = m_size; return *this;};
-            Stack &setC_size(int c_size) { this->c_size = c_size; return *this; };
-            Stack &setArr(Test *arr) { this->arr= arr; return *this; };*/
+            
             
             //! Проверка состояния мссива. Пара: (текущий размер, максимальный рахмер)
             std::pair <int, int> check() const { return std::make_pair(c_size, m_size); };
@@ -53,15 +53,16 @@ namespace Lab2{
             void union_stack();
 
             //! Положить на стопку тест из аргумента
-            void operator+=(const Test &test);
+            Stack &operator+=(const Test &test);
             //! Скопировать экземпляр класса
             Stack &operator=(const Stack &stack);
             //! Переместить rvalue
             Stack &operator=(Stack &&stack);
             //! Верхнюю работу скопировать и поместить на верх
             Stack &operator++();
+            Stack operator++(int);
             //! Обратиться к стэку по индексу из аргумента
-            Test &operator[](int i);
+            Test &operator[](int i) const;
             //! Вывод в выходной поток из аргумента, стэк из аргумента
             friend std::ostream &operator<<(std::ostream &c, const Stack &stack);
             //! Ввод в выходной поток из аргумента, стэк из аргумента

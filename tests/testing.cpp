@@ -109,6 +109,9 @@ TEST_CASE("TestConstructor") {
         std::vector <Lab2::Test> l;
         l.push_back(tmp);
         Lab2::Stack ans(1, l, 10);
+        Lab2::Stack stack = (std::move(ans));
+        ans = std::move(stack);
+        ans++;
     }    
 }
 

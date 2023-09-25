@@ -165,10 +165,10 @@ namespace Lab2{
         }
     }
 
-    void Stack::operator+=(const Test &test){
+    Stack &Stack::operator+=(const Test &test){
         //! Проверка на необходимость увелечения размера стека
         if (c_size == m_size){
-            m_size += 1;
+            m_size += step;
         }
         //! Работу из аргумента помещаем на верх стека
         Test *tmp = new Test[c_size + 1];
@@ -177,6 +177,7 @@ namespace Lab2{
         arr = tmp;
         arr[c_size] = test;
         c_size += 1;
+        return (*this);
     }
 
     Stack &Stack::operator=(const Stack &stack){
@@ -217,7 +218,19 @@ namespace Lab2{
         return *this;
     }
 
-    Test&Stack::operator[](int i){
+    Stack Stack::operator++(int){
+        //! Если стек пуст, нельзя получить верхнюю работу
+        if (c_size == 0){
+            throw std::invalid_argument("stack is empty");
+        }
+        //! Дублирование последней работы
+        Test tmp = arr[c_size - 1];
+        Stack ans(*this);
+        *this += tmp;
+        return ans;
+    }
+
+    Test &Stack::operator[](int i) const{
         //! Проверка на корректность индекса
         if (i >= c_size || i < 0){
             throw std::invalid_argument("index out of range");

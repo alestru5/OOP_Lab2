@@ -1,6 +1,13 @@
 #include <iostream>
 #include "./TestLib/test.h"
-#include "./StackLib/stack.h"
+
+
+
+#if defined DYNAMIC
+    #include "./StackLib/stack.h"
+#else
+    #include "./StackStaticLib/stack_static.h"
+#endif    
 #include "menu.h"
 #include "help.h"
 
@@ -20,7 +27,11 @@ int main(){
             }catch(const std::exception &msg){
                 std::cout << msg.what() << std::endl;
                 continue;
-            } 
+            }
+            /*const Stack t(stack);
+            Test test;
+            test = t[0];
+            std::cout<<t;*/
         }
     } catch(const std::bad_alloc &ba){
         std::cerr<<"Not enough memory"<<std::endl;

@@ -2,7 +2,11 @@
 #define MENU_H
 #include <iostream>
 #include "./TestLib/test.h"
-#include "./StackLib/stack.h"
+#if defined DYNAMIC
+    #include "./StackLib/stack.h"
+#else
+    #include "./StackStaticLib/stack_static.h"
+#endif    
 #include "help.h"
 #include "unordered_map"
 

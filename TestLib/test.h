@@ -5,9 +5,7 @@
 
 
 namespace Lab2{
-    /**
-     * Класс работы студента
-    */
+    //!Класс работы студента
     class Test{
         private:
             //!Фамилия
@@ -52,7 +50,9 @@ namespace Lab2{
             //! Сравнение идет по фамилии, затем по первой странице
             int operator<=>(const Test &test) const;
             //! Отрицание теста: Если тест проверен, но делаем непроверенный, иначе - наоборот, возвращаем измененный тест
-            Test operator!() const;
+            Test operator!();
+            //! Копирование теста
+            /*Test &operator=(const Test &test);*/
 
             //! Вывод в поток из аргумента, возвращаем поток
             friend std::ostream &operator<<(std::ostream &c, const Test &test);

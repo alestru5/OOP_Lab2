@@ -17,6 +17,7 @@ int (*menu())(Stack &stack){
 }
 
 int enter_stack(Stack &stack){
+    
     try{
         if (stack.getC_size() != 0){
             throw std::invalid_argument("stack isn't empty");
@@ -60,9 +61,13 @@ int show_info(Stack &stack){
 }
 
 int add_test(Stack &stack){
-    std::cout<<std::endl;
-    Test push = inputTest();
-    stack += push;
+    try{
+        std::cout<<std::endl;
+        Test push = inputTest();
+        stack += push;
+    } catch(...){
+        throw;
+    }
     return 0;  
 }
 
@@ -103,21 +108,29 @@ int link_tests(Stack &stack){
 }
 
 int split_test(Stack &stack){
-    int ind;
-    show_stack(stack);
-    std::cout<<"Choice test: ";
-    ind = getNum<int>(1, stack.getC_size());
-    Test first = stack.getArr()[ind-1];
-    std::vector <Test> tmp = first.split_test();
-    stack.delete_test(first);
-    for (size_t i = 0; i < tmp.size(); i++){
-        stack += tmp[i];
+    try{
+        int ind;
+        show_stack(stack);
+        std::cout<<"Choice test: ";
+        ind = getNum<int>(1, stack.getC_size());
+        Test first = stack.getArr()[ind-1];
+        std::vector <Test> tmp = first.split_test();
+        stack.delete_test(first);
+        for (size_t i = 0; i < tmp.size(); i++){
+            stack += tmp[i];
+        }
+    } catch(...){
+        throw;
     }
     return 0;
 }
 
 int split_stack(Stack &stack){
-    stack.split_stack();
+    try{
+        stack.split_stack();
+    } catch(...){
+        throw;
+    }    
     return 0;
 }
 
